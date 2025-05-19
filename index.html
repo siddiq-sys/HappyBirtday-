@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NetflixByAdam</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                screens: {
+                    'xs': '475px',
+                    'sm': '640px',
+                    'md': '768px',
+                    'lg': '1024px',
+                    'xl': '1280px',
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #141414;
+            color: white;
+        }
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            border: 2px solid white;
+        }
+        .movie-thumbnail:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <!-- User Selection Screen -->
+    <style>
+        /* Animasi Fade-in */
+#user-selection {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Animasi Hover untuk Butang */
+button {
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 50%);
+    transition: all 0.5s ease-out;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+button:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    color: white;
+    border-color: white;
+}
+
+/* Efek Glow untuk Tajuk */
+h1 {
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6);
+    transition: text-shadow 0.3s ease-in-out;
+}
+
+h1:hover {
+    text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 40px rgba(255, 0, 0, 0.8);
+}
+
+/* Efek Glassmorphism untuk Kad Profil */
+.profile-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.profile-card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+    </style>
+    <div id="user-selection" class="min-h-screen flex flex-col items-center justify-center bg-black">
+        <h1 class="text-5xl font-bold text-red-600 mb-16">NETFLIX</h1>
+        <h2 class="text-3xl mb-12">Who's watching?</h2>
+        <div class="flex flex-wrap justify-center gap-8 mb-16">
+            <!-- Profile cards will be added by JavaScript -->
+        </div>
+        <button class="border border-gray-500 px-4 py-2 text-gray-400 hover:text-white hover:border-white">
+            Manage Profiles
+        </button>
+    </div>
+
+    <!-- Main Content (Hidden Initially) -->
+    <div id="main-content" class="hidden">
+        <!-- Navbar -->
+        <nav class="flex justify-between items-center p-4 bg-gradient-to-b from-black to-transparent absolute w-full z-10">
+            <div class="text-red-600 font-bold text-2xl sm:text-3xl md:text-4xl">NETFLIX</div>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="flex items-center gap-2 cursor-pointer group" id="profile-menu">
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" class="w-8 h-8 rounded" id="current-profile-img">
+                    <i class="fas fa-caret-down text-gray-300 group-hover:text-white"></i>
+                    <div class="absolute hidden group-hover:block top-16 right-4 bg-black bg-opacity-90 p-4 rounded">
+                        <h3 class="text-white mb-2">Profiles</h3>
+                        <div class="flex gap-2" id="profile-switcher">
+                            <!-- Profiles will be added by JS -->
+                        </div>
+                        <button class="mt-4 text-gray-400 hover:text-white" id="sign-out">Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Banner -->
+        <section class="relative h-screen">
+            <div class="absolute inset-0 z-0">
+                <video autoplay muted loop class="w-full h-full object-cover">
+                    <source src="V3.MOV" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent"></div>
+            </div>
+            <div class="absolute bottom-1/4 left-4 sm:left-8 md:left-16 z-10 max-w-xs sm:max-w-sm md:max-w-md px-4">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4">Selamat Hari Raya</h1>
+                <p class="text-sm sm:text-base mb-4 sm:mb-6">Maaf Atas semua salah silap saya yang pernah saya buat.</p>
+                <div class="flex gap-4">
+                    <button class="bg-white text-black px-6 py-2 rounded flex items-center gap-2">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                    <button class="bg-gray-600 bg-opacity-70 px-6 py-2 rounded flex items-center gap-2">
+                        <i class="fas fa-info-circle"></i> More Info
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Rows -->
+        <section class="relative z-10 mt-8 px-16">
+            <h2 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Popular on Netflix</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 mb-6 sm:mb-8">
+                <!-- Movie thumbnails will be added by JavaScript -->
+            </div>
+
+            <h2 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Trending Now</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 mb-6 sm:mb-8">
+                <!-- Movie thumbnails will be added by JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div id="video-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90">
+        <div class="absolute top-2 right-2 sm:top-4 sm:right-4">
+            <button id="close-video" class="text-white text-xl sm:text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="flex items-center justify-center h-full px-2">
+            <video controls autoplay class="w-full max-w-full sm:max-w-4xl" id="video-player">
+                <source src="" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <!-- Video Upload Section -->
+    <div class="fixed bottom-4 right-4 z-50">
+        <label class="bg-red-600 text-white px-4 py-2 rounded cursor-pointer">
+            <i class="fas fa-upload mr-2"></i>Upload Video
+            <input type="file" id="video-upload" accept="video/mp4" class="hidden">
+        </label>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
